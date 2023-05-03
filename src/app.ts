@@ -42,6 +42,6 @@ app.get("/api/wp/webhook", (req: Request, res: Response) => {
     };
 });
 
-app.listen(3003, () => {
-    console.log(new Date().toLocaleString(), `: App is running on http://localhost:3003`);
+app.listen(7000, () => {
+    console.log(new Date().toLocaleString(), `: App is running on http://localhost:7000`);
 });
