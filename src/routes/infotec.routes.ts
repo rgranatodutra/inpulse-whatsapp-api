@@ -22,3 +22,20 @@ infotecRouter.post("wp/webhook", (req: Request, res: Response) => {
         console.log(err);
     };
 });
+
+infotecRouter.get("wp/webhook", (req: Request, res: Response) => {
+    const verify_token = "inpulse";
+
+    let mode = req.query["hub.mode"];
+    let token = req.query["hub.verify_token"];
+    let challenge = req.query["hub.challenge"];
+
+    if (mode && token) {
+        if (mode === "subscribe" && token === verify_token) {
+
+            res.status(200).send(challenge);
+        } else {
+            res.status(403).send();
+        };
+    };
+});
