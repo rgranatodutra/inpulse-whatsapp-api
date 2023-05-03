@@ -8,7 +8,7 @@ infotecRouter.post('/wp/webhook', (req: Request, res: Response) => {
         let number = req.body.entry[0].changes[0].value.messages[0].from; 
         console.log("aqui 2")
         
-        const baseURL = process.env.INFOTEC_BASEURL || "https://inpulse-whatsapp.onrender.com";
+        const baseURL = process.env.INFOTEC_BASEURL || "http://localhost:8000";
         const api = axios.create({
             baseURL: baseURL,
             timeout: 10000
