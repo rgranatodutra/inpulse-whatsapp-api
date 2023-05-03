@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const infotecRouter = Router();
 
-infotecRouter.post('api/wp/webhook', (req: Request, res: Response) => {
+infotecRouter.post("wp/webhook", (req: Request, res: Response) => {
     try {
         let number = req.body.entry[0].changes[0].value.messages[0].from; 
         console.log("aqui 2")
