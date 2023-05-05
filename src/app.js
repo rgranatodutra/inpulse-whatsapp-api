@@ -1,22 +1,21 @@
-import express, { Application, Request, Response, json } from "express";
+import express, { json } from "express";
 import axios from "axios";
 import 'dotenv/config';
 
-const app: Application = express();
+const app = express();
 app.use(json({ limit: '20mb' }));
 
-app.post("/api/wp/webhook", (req: Request, res: Response) => {
+app.post("/api/wp/webhook", (req, res) => {
     try {
-        let number = req.body.entry[0].changes[0].value.messages[0].from; 
-        console.log("aqui 2")
-        
+
+        console.log(new Date().toLocaleString(), ": Received new message.");
+    
         const baseURL = process.env.INFOTEC_BASEURL || "http://localhost:8000";
         const api = axios.create({
             baseURL: baseURL,
             timeout: 10000
         });
 
-        console.log(new Date().toLocaleString(), ": New message from ", number, "to infoTec.")
         api.post('/api/whatsapp/', req.body);
     
         return res.status(200).send();
@@ -25,7 +24,7 @@ app.post("/api/wp/webhook", (req: Request, res: Response) => {
     };
 });
 
-app.get("/api/wp/webhook", (req: Request, res: Response) => {
+app.get("/api/wp/webhook", (req, res) => {
     const verify_token = "inpulse";
 
     let mode = req.query["hub.mode"];

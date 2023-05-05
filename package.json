@@ -12,6 +12,6 @@
     "typescript": "^5.0.4"
   },
   "scripts": {
-    "dev": "ts-node-dev --cls --rs --ignore-watch node_modules src/app.ts"
+    "dev": "npm run ./src/app.js"
   }
 }
