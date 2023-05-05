@@ -6,7 +6,7 @@ require('dotenv/config');
 const app = express();
 app.use(json({ limit: '20mb' }));
 
-app.post("/api/wp/webhook", (req, res) => {
+app.post("https://1189-45-231-143-67.ngrok-free.app/api/wp/webhook", (req, res) => {
     try {
         console.log(new Date().toLocaleString(), ": Received new message.");
     
