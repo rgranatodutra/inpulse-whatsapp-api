@@ -1,13 +1,13 @@
-import express, { json } from "express";
-import axios from "axios";
-import 'dotenv/config';
+const express = require("express")
+const json = require("express").json;
+const axios = require("axios");
+require('dotenv/config');
 
 const app = express();
 app.use(json({ limit: '20mb' }));
 
 app.post("/api/wp/webhook", (req, res) => {
     try {
-
         console.log(new Date().toLocaleString(), ": Received new message.");
     
         const baseURL = process.env.INFOTEC_BASEURL || "http://localhost:8000";

@@ -12,6 +12,6 @@
     "typescript": "^5.0.4"
   },
   "scripts": {
-    "dev": "npm run ./src/app.js"
+    "dev": "node ./src/app.js"
   }
 }
