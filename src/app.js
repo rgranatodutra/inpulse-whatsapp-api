@@ -6,7 +6,7 @@ require('dotenv/config')
 const app = express();
 app.use(json({ limit: '20mb' }));
 
-console.log(process.env.INFOTEC_BASEURL)
+// Infotec Routes
 app.post("/api/wp/webhook", (req, res) => {
     try {
         console.log(new Date().toLocaleString(), ": Received new message.");
@@ -26,6 +26,42 @@ app.post("/api/wp/webhook", (req, res) => {
 });
 
 app.get("/api/wp/webhook", (req, res) => {
+    const verify_token = "inpulse";
+
+    let mode = req.query["hub.mode"];
+    let token = req.query["hub.verify_token"];
+    let challenge = req.query["hub.challenge"];
+
+    if (mode && token) {
+        if (mode === "subscribe" && token === verify_token) {
+
+            res.status(200).send(challenge);
+        } else {
+            res.status(403).send();
+        };
+    };
+});
+
+// Renan Routes
+app.post("/api/wp/webhook/renan", (req, res) => {
+    try {
+        console.log(new Date().toLocaleString(), ": Received new message.");
+    
+        const baseURL = process.env.RENAN_BASEURL || "http://localhost:8000";
+        const api = axios.create({
+            baseURL: baseURL,
+            timeout: 10000
+        });
+
+        api.post('/api/whatsapp/', req.body);
+    
+        return res.status(200).send();
+    } catch(err){
+        console.log(err);
+    };
+});
+
+app.get("/api/wp/webhook/renan", (req, res) => {
     const verify_token = "inpulse";
 
     let mode = req.query["hub.mode"];
