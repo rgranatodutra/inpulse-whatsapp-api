@@ -9,17 +9,24 @@ app.use(json({ limit: '20mb' }));
 // Infotec Routes
 app.post("/api/wp/webhook", (req, res) => {
     try {
-        console.log(new Date().toLocaleString(), ": Received new message.");
+        if(!req.body.entry[0]?.changes[0].value?.messages) {
+            if(req.body.entry[0]?.changes[0]?.value?.statuses) {
+                console.log(new Date().toLocaleString(), ": Message status updated.");
+                console.log(req.body.entry[0]?.changes[0]?.value?.statuses);
+            }
+            return;
+        } else {
+            console.log(new Date().toLocaleString(), ": Received new message.");
+            const baseURL = process.env.INFOTEC_BASEURL || "http://localhost:8000";
+            const api = axios.create({
+                baseURL: baseURL,
+                timeout: 10000
+            });
     
-        const baseURL = process.env.INFOTEC_BASEURL || "http://localhost:8000";
-        const api = axios.create({
-            baseURL: baseURL,
-            timeout: 10000
-        });
-
-        api.post('/api/whatsapp/', req.body);
-    
-        return res.status(200).send();
+            api.post('/api/whatsapp/', req.body);
+        
+            return res.status(200).send();
+        };
     } catch(err){
         console.log(err);
     };
@@ -34,7 +41,6 @@ app.get("/api/wp/webhook", (req, res) => {
 
     if (mode && token) {
         if (mode === "subscribe" && token === verify_token) {
-
             res.status(200).send(challenge);
         } else {
             res.status(403).send();
@@ -45,20 +51,24 @@ app.get("/api/wp/webhook", (req, res) => {
 // Renan Routes
 app.post("/api/wp/webhook/renan", (req, res) => {
     try {
-        console.log(new Date().toLocaleString(), ": Received new message.");
-        
-        console.log(req.body.entry[0].changes)
-        if(!req.body.entry[0]?.changes[0].value?.messages) return;
-
-        const baseURL = process.env.RENAN_BASEURL || "http://localhost:8000";
-        const api = axios.create({
-            baseURL: baseURL,
-            timeout: 10000
-        });
-
-        api.post('/api/whatsapp/', req.body);
+        if(!req.body.entry[0]?.changes[0].value?.messages) {
+            if(req.body.entry[0]?.changes[0]?.value?.statuses) {
+                console.log(new Date().toLocaleString(), ": Message status updated.");
+                console.log(req.body.entry[0]?.changes[0]?.value?.statuses);
+            }
+            return;
+        } else {
+            console.log(new Date().toLocaleString(), ": Received new message.");
+            const baseURL = process.env.RENAN_BASEURL || "http://localhost:8000";
+            const api = axios.create({
+                baseURL: baseURL,
+                timeout: 10000
+            });
     
-        return res.status(200).send();
+            api.post('/api/whatsapp/', req.body);
+        
+            return res.status(200).send();
+        };
     } catch(err){
         console.log(err);
     };
@@ -73,7 +83,6 @@ app.get("/api/wp/webhook/renan", (req, res) => {
 
     if (mode && token) {
         if (mode === "subscribe" && token === verify_token) {
-
             res.status(200).send(challenge);
         } else {
             res.status(403).send();
