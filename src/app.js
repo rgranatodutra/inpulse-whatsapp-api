@@ -48,6 +48,7 @@ app.post("/api/wp/webhook/renan", (req, res) => {
         console.log(new Date().toLocaleString(), ": Received new message.");
         
         console.log(req.body.entry[0].changes)
+        if(!req.body.entry[0]?.changes[0].value?.messages) return;
 
         const baseURL = process.env.RENAN_BASEURL || "http://localhost:8000";
         const api = axios.create({
