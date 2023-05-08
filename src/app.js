@@ -7,12 +7,14 @@ const app = express();
 app.use(json({ limit: '20mb' }));
 
 // Infotec Routes
-app.post("/api/wp/webhook", (req, res) => {
+app.post("/webhook/infotec", (req, res) => {
     try {
         if(!req.body.entry[0]?.changes[0].value?.messages) {
-/*             if(req.body.entry[0]?.changes[0]?.value?.statuses) {
+         /*             
+            if(req.body.entry[0]?.changes[0]?.value?.statuses) {
                 console.log(new Date().toLocaleString(), ": Message status updated. ", req.body.entry[0]?.changes[0]?.value?.statuses[0]?.status);
-            } */
+            } 
+        */
             return;
         } else {
             console.log(new Date().toLocaleString(), ": Received new message.");
@@ -22,7 +24,7 @@ app.post("/api/wp/webhook", (req, res) => {
                 timeout: 10000
             });
     
-            api.post('/api/whatsapp/', req.body);
+            api.post('/whatsapp/message', req.body);
         
             return res.status(200).send();
         };
@@ -31,7 +33,7 @@ app.post("/api/wp/webhook", (req, res) => {
     };
 });
 
-app.get("/api/wp/webhook", (req, res) => {
+app.get("/webhook/infotec", (req, res) => {
     const verify_token = "inpulse";
 
     let mode = req.query["hub.mode"];
@@ -48,22 +50,25 @@ app.get("/api/wp/webhook", (req, res) => {
 });
 
 // Renan Routes
-app.post("/api/wp/webhook/renan", (req, res) => {
+app.post("/webhook/renan", (req, res) => {
     try {
         if(!req.body.entry[0]?.changes[0].value?.messages) {
-/*             if(req.body.entry[0]?.changes[0]?.value?.statuses) {
+        /*             
+            if(req.body.entry[0]?.changes[0]?.value?.statuses) {
                 console.log(new Date().toLocaleString(), ": Message status updated. ", req.body.entry[0]?.changes[0]?.value?.statuses[0]?.status);
-            } */
+            } 
+        */
             return;
         } else {
             console.log(new Date().toLocaleString(), ": Received new message.");
+
             const baseURL = process.env.RENAN_BASEURL || "http://localhost:8000";
             const api = axios.create({
                 baseURL: baseURL,
                 timeout: 10000
             });
     
-            api.post('/api/whatsapp/', req.body);
+            api.post('/whatsapp/message', req.body);
         
             return res.status(200).send();
         };
@@ -72,7 +77,7 @@ app.post("/api/wp/webhook/renan", (req, res) => {
     };
 });
 
-app.get("/api/wp/webhook/renan", (req, res) => {
+app.get("/webhook/renan", (req, res) => {
     const verify_token = "inpulse";
 
     let mode = req.query["hub.mode"];
