@@ -10,9 +10,9 @@ app.use(json({ limit: '20mb' }));
 app.post("/api/wp/webhook", (req, res) => {
     try {
         if(!req.body.entry[0]?.changes[0].value?.messages) {
-            if(req.body.entry[0]?.changes[0]?.value?.statuses) {
+/*             if(req.body.entry[0]?.changes[0]?.value?.statuses) {
                 console.log(new Date().toLocaleString(), ": Message status updated. ", req.body.entry[0]?.changes[0]?.value?.statuses[0]?.status);
-            }
+            } */
             return;
         } else {
             console.log(new Date().toLocaleString(), ": Received new message.");
@@ -51,9 +51,9 @@ app.get("/api/wp/webhook", (req, res) => {
 app.post("/api/wp/webhook/renan", (req, res) => {
     try {
         if(!req.body.entry[0]?.changes[0].value?.messages) {
-            if(req.body.entry[0]?.changes[0]?.value?.statuses) {
+/*             if(req.body.entry[0]?.changes[0]?.value?.statuses) {
                 console.log(new Date().toLocaleString(), ": Message status updated. ", req.body.entry[0]?.changes[0]?.value?.statuses[0]?.status);
-            }
+            } */
             return;
         } else {
             console.log(new Date().toLocaleString(), ": Received new message.");
