@@ -11,8 +11,7 @@ app.post("/api/wp/webhook", (req, res) => {
     try {
         if(!req.body.entry[0]?.changes[0].value?.messages) {
             if(req.body.entry[0]?.changes[0]?.value?.statuses) {
-                console.log(new Date().toLocaleString(), ": Message status updated.");
-                console.log(req.body.entry[0]?.changes[0]?.value?.statuses);
+                console.log(new Date().toLocaleString(), ": Message status updated. ", req.body.entry[0]?.changes[0]?.value?.statuses[0]?.status);
             }
             return;
         } else {
