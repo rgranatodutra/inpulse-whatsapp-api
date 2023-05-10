@@ -102,7 +102,7 @@ app.post("/webhook/junio", (req, res) => {
         } else {
             console.log(new Date().toLocaleString(), ": Received new message.");
 
-            const baseURL = process.env.RENAN_BASEURL || "http://localhost:8000";
+            const baseURL = process.env.JUNIO_BASEURL || "http://localhost:8000";
             const api = axios.create({
                 baseURL: baseURL,
                 timeout: 10000
