@@ -24,7 +24,7 @@ app.post("/webhook/infotec", (req, res) => {
                 timeout: 10000
             });
     
-            api.post('/api/whatsapp/message', req.body);
+            api.post('/whatsapp/message', req.body);
         
             return res.status(200).send();
         };
@@ -68,7 +68,7 @@ app.post("/webhook/renan", (req, res) => {
                 timeout: 10000
             });
     
-            api.post('/api/whatsapp/message', req.body);
+            api.post('/whatsapp/message', req.body);
         
             return res.status(200).send();
         };
@@ -108,7 +108,7 @@ app.post("/webhook/junio", (req, res) => {
                 timeout: 10000
             });
     
-            api.post('/api/whatsapp/message', req.body);
+            api.post('/whatsapp/message', req.body);
         
             return res.status(200).send();
         };
