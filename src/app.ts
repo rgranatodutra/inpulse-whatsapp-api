@@ -1,4 +1,4 @@
-import express, { json } from "express";
+import express, { json, Request, Response } from "express";
 import axios from "axios";
 import "dotenv/config";
 import { AppDataSource } from "./data-source";
@@ -7,7 +7,7 @@ import { Client } from "./entities/clients.entity";
 const app = express();
 app.use(json({ limit: '20mb' }));
 
-app.post("/webhook/:empresa", async(req, res) => {
+app.post("/webhook/:empresa", async(req: Request, res: Response) => {
     try {
         if(!req.body.entry[0]?.changes[0].value?.messages) {
             return;
@@ -36,7 +36,7 @@ app.post("/webhook/:empresa", async(req, res) => {
     };
 });
 
-app.get("/webhook/:empresa", (req, res) => {
+app.get("/webhook/:empresa", (req: Request, res: Response) => {
     const verify_token = "inpulse";
 
     let mode = req.query["hub.mode"];
