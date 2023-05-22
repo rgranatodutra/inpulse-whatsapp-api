@@ -1,9 +1,9 @@
 import 'dotenv/config';
 import 'reflect-metadata';
-import { DataSource } from 'typeorm';
+import { DataSource, DataSourceOptions } from 'typeorm';
 import path from 'path';
 
-const dataSourceConfig = () => {
+const dataSourceConfig = (): DataSourceOptions => {
     const entitiesPath = path.join(__dirname, './entities/**.{ts,js}');
     const migrationsPath = path.join(__dirname, './migrations/**.{ts,js}');
 
@@ -14,7 +14,7 @@ const dataSourceConfig = () => {
     };
 
     return {
-        type: 'postgre',
+        type: 'mysql',
         url: databaseURL,
         synchronize: false,
         logging: false,
