@@ -14,7 +14,7 @@ const dataSourceConfig = (): DataSourceOptions => {
     };
 
     return {
-        type: 'mysql',
+        type: 'postgres',
         url: databaseURL,
         synchronize: false,
         logging: false,
