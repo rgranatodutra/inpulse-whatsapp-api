@@ -3,6 +3,7 @@ import axios from "axios";
 import "dotenv/config";
 import { AppDataSource } from "./data-source";
 import { Client } from "./entities/clients.entity";
+import 'express-async-errors';
 
 const app = express();
 app.use(json({ limit: '20mb' }));
@@ -18,16 +19,23 @@ app.post("/webhook/:empresa", async (req: Request, res: Response) => {
             const client = await clientsRepo.findOneBy({ name: req.params.empresa });
 
             if (client) {
-                const api = axios.create({
-                    baseURL: client.serverUrl,
-                    timeout: 10000
-                });
+                try {
+                    const api = axios.create({
+                        baseURL: client.serverUrl,
+                        timeout: 10000
+                    });
 
-                api.post('/whatsapp/message', req.body);
+                    api.post('/message', req.body)
+                    .catch(err => console.log(new Date().toLocaleString(), ": Falha ao se conectar com: ", client.serverUrl))
+
+                } catch (err) {
+                    console.log(new Date().toLocaleString(), ": Falha ao se conectar com: ", client.serverUrl)
+                };
+                
 
                 return res.status(200).send();
             } else {
-                return res.status(404).json({ message: "Client not found..." });
+                console.log(new Date().toLocaleString(), ": Cliente não encontrado: ", req.params.empresa)
             };
 
         };

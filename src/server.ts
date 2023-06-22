@@ -6,8 +6,8 @@ async function initialize() {
     await AppDataSource.initialize()
     console.log(new Date().toLocaleString(), ': Database connected.');
 
-    app.listen(80, () => {
-        console.log(new Date().toLocaleString(), ": App initialized on port 80.")
+    app.listen(4433, () => {
+        console.log(new Date().toLocaleString(), ": App initialized on port 4433.")
     });
 };
 
